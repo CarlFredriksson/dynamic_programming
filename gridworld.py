@@ -101,16 +101,29 @@ if __name__ == "__main__":
     }
     NUM_STATES = 15
     NUM_ACTIONS = 4
+
+    # Non-sweeping policy evaluation
+    print("******Non-sweeping policy evaluation******")
     policy = np.ones((NUM_STATES, NUM_ACTIONS)) / NUM_ACTIONS
     state_values = np.zeros(NUM_STATES)
     print(state_values)
-    new_state_values = policy_evaluation(DYNAMICS, policy, state_values)
-    print(new_state_values)
-    new_state_values = policy_evaluation(DYNAMICS, policy, new_state_values)
-    print(new_state_values)
-    new_state_values = policy_evaluation(DYNAMICS, policy, new_state_values)
-    print(new_state_values)
+    for _ in range(10):
+        state_values = policy_evaluation(DYNAMICS, policy, state_values)
+        print(state_values)
     print("--------------------------------")
     print(policy)
-    value_iteration_sweep(DYNAMICS, policy, new_state_values)
+    value_iteration_sweep(DYNAMICS, policy, state_values)
+    print(policy)
+
+    # Sweeping policy evaluation
+    print("******Sweeping policy evaluation******")
+    policy = np.ones((NUM_STATES, NUM_ACTIONS)) / NUM_ACTIONS
+    state_values = np.zeros(NUM_STATES)
+    print(state_values)
+    for _ in range(10):
+        policy_evaluation_sweep(DYNAMICS, policy, state_values)
+        print(state_values)
+    print("--------------------------------")
+    print(policy)
+    value_iteration_sweep(DYNAMICS, policy, state_values)
     print(policy)
