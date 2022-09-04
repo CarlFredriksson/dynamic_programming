@@ -22,7 +22,7 @@ def policy_evaluation_sweep(dynamics, policy, state_values):
             value += policy[state, action] * (reward + state_values[new_state])
         state_values[state] = value
 
-def value_iteration_sweep(dynamics, policy, state_values):
+def policy_improvement(dynamics, policy, state_values):
     num_states = len(state_values)
     for state in range(num_states):
         max_value = -np.inf
@@ -112,7 +112,7 @@ if __name__ == "__main__":
         print(state_values)
     print("--------------------------------")
     print(policy)
-    value_iteration_sweep(DYNAMICS, policy, state_values)
+    policy_improvement(DYNAMICS, policy, state_values)
     print(policy)
 
     # Sweeping policy evaluation
@@ -125,5 +125,5 @@ if __name__ == "__main__":
         print(state_values)
     print("--------------------------------")
     print(policy)
-    value_iteration_sweep(DYNAMICS, policy, state_values)
+    policy_improvement(DYNAMICS, policy, state_values)
     print(policy)
